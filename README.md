@@ -1,15 +1,18 @@
 # Wetube 2022
  
-
+### Global Router
 - / -> Home
 - /join ->  Join
 - /login -> Login
+- /search -> Search
 
 
-#
-- /user/edit -> Edit user
-- /user/delet -> Delete user
-#
+### User Router
+- /users/edit -> Edit user
+- /users/delete -> Delete user
+
+
+### Video Router
 - /videos/watch -> Watch Video
 - /videos/edit -> Edit Video
 - /vieos/deletem -> Delete Video
