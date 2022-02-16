@@ -3,13 +3,28 @@
 export const trending = (req,res) =>  {
     const videos = [
         {
-            title:"hello",
+            title:"first video",
+            rating:5,
+            comments:2,
+            createdAt:"2 minutes ago",
+            views:59,
+            id:1,
         },
         {
-            title: "Video #2",
+            title:"second video",
+            rating:3,
+            comments:55,
+            createdAt:"1 minutes ago",
+            views:70,
+            id:2,
         },
         {
-            title: "video #3",
+            title:"third video",
+            rating:4,
+            comments:22,
+            createdAt:"20 minutes ago",
+            views:90,
+            id:3,
         },
     ]; 
     return res.render("home", {pageTitle: "Home", videos });
