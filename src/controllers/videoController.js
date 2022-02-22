@@ -1,49 +1,26 @@
-let videos = [
-    {
-        title:"first video",
-        rating:5,
-        comments:2,
-        createdAt:"2 minutes ago",
-        views:1,
-        id:1,
-    },
-    {
-        title:"second video",
-        rating:3,
-        comments:55,
-        createdAt:"1 minutes ago",
-        views:70,
-        id:2,
-    },
-    {
-        title:"third video",
-        rating:4,
-        comments:22,
-        createdAt:"20 minutes ago",
-        views:90,
-        id:3,
-    },
-]; 
-
-export const trending = (req,res) =>  {
-    return res.render("home", {pageTitle: "Home", videos });
+import Video from "../models/Video";
+ 
+export const home = (req,res) =>  {
+    console.log("start");
+    Video.find({},(error, videos) => {
+        console.log("serching");
+        return res.render("home", {pageTitle: "Home" , videos });
+    });
+    console.log("I should be the last one") 
 }
 export const search = (req, res) => res.send("Search~!");
 
 export const watch = (req, res) => {
-    const { id } = req.params;
-    const video = videos[id-1];
-    return res.render("watch",{pageTitle:`Watching: ${video.title}` , video});
+    const { id } = req.params;;
+    return res.render("watch",{pageTitle:`Watching`});
 }
 export const getEdit = (req, res) => {
     const { id } = req.params;
-    const video = videos[id-1];
-    return res.render("edit",{pageTitle: `Editing: ${video.title}`, video});
+    return res.render("edit",{pageTitle: `Editing`});
 }
 export const postEdit = (req, res) => {
     const { id } = req.params;
     const {title} = req.body;
-    videos[id-1].title = title;
     return res.redirect(`/videos/${id}`);
 }
 export const getUpload = (req,res) => {
@@ -52,14 +29,5 @@ export const getUpload = (req,res) => {
 export const postUpload = (req,res) => {
     // here I will add a video to the video array.
     const { title } = req.body;
-    const newVideo = {
-        title,
-        rating:0,
-        comments:0,
-        createdAt:"just now",
-        views:0,
-        id: videos.length +1,
-    };
-    videos.push(newVideo);
     return res.redirect("/");
 }
