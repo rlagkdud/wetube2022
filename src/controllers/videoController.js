@@ -10,10 +10,7 @@ Video.find({},(error,videos)=> {
 */
 
 export const home = async(req,res) =>  {
-    console.log("I start");
     const videos = await Video.find({});
-    console.log(videos);
-    console.log("I finish");
     return res.render("home", {pageTitle: "Home" , videos });
     
 }
@@ -37,6 +34,17 @@ export const getUpload = (req,res) => {
 }
 export const postUpload = (req,res) => {
     // here I will add a video to the video array.
-    const { title } = req.body;
+    const { title, description, hashtags } = req.body;
+    const video = new Video({
+        title,
+        description,
+        hashtags: hashtags.split(",").map((word) =>`#${word}`),
+        createdAt: Date.now(),
+        meta:{
+            views: 0,
+            rating: 0,
+        },
+    });
+    console.log(video);
     return res.redirect("/");
 }
