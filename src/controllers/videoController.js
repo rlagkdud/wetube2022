@@ -1,4 +1,4 @@
-import Video, { formatHashtags } from "../models/Video";
+import Video from "../models/Video";
  
 /*
 Video.find({},(error,videos)=> {
@@ -42,7 +42,7 @@ export const postEdit = async (req, res) => {
     await Video.findByIdAndUpdate(id, {
         title,
         description,
-        hashtags: formatHashtags(hashtags)
+        hashtags: Video.formatHashtags(hashtags),
 
     });
     return res.redirect(`/videos/${id}`);
@@ -56,7 +56,7 @@ export const postUpload = async (req,res) => {
         await Video.create({
             title,
             description,
-            hashtags: formatHashtags(hashtags),
+            hashtags: Video.formatHashtags(hashtags),
         });
         return res.redirect("/");
     } catch(error) {
