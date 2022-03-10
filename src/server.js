@@ -21,6 +21,7 @@ app.use(session({
 }));
 
 app.use((req,res,next)=>{
+    res.locals.sexy = "you";
     req.sessionStore.all((error,sessions)=>{
         console.log(sessions);
         next();
