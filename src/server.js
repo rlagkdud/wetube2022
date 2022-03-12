@@ -20,6 +20,9 @@ app.use(session({
     secret:"Hello!",
     resave: false,
     saveUninitialized: false,
+    cookie: {
+        maxAge: 20000,
+    },
     store: MongoStore.create({mongoUrl: "mongodb://127.0.0.1:27017/wetube"}),
 }));
 
