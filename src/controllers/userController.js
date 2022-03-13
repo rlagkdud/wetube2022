@@ -1,7 +1,6 @@
 import User from "../models/User";
 import fetch from 'node-fetch';
 import bcrypt from "bcrypt";
-import { response } from "express";
 
 export const getJoin = (req, res) => res.render("join",{pageTitle: "Join" });
 export const postJoin = async (req, res) => {
@@ -100,6 +99,17 @@ export const finishGithubLogin = async (req,res) => {
             return res.redirect("/");
         } else{
             //create an account
+            const user = await User.create({
+                name: userData.name ? userData.name : userData.login,
+                userName: userData.login,
+                email: emailObj.email,
+                password: "",
+                socialOnly: true,
+                location: userData.location,
+            });
+            req.session.loggedIn = true;
+            req.session.user = user;
+            return res.redirect("/");
         }
     } else {
         return res.redirect("/login");
