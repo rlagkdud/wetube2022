@@ -31,7 +31,7 @@ export const getLogin = (req, res) => res.render("login", {pageTitle:"Login"});
 export const postLogin = async(req, res) => {
     const {userName, password}  = req.body;
     const pageTitle = "Login";
-    const user = await User.findOne({userName})
+    const user = await User.findOne({userName, socialOnly:false})
     if(!user){
         return res.status(400).render("login", {pageTitle, errorMessage:"An accout with this username does not exists."} );
     }
@@ -92,14 +92,10 @@ export const finishGithubLogin = async (req,res) => {
         if(!emailObj){
             return res.redirect("/login");
         }
-        const existingUser = await User.findOne({email: emailObj.email});
-        if(existingUser){
-            req.session.loggedIn = true;
-            req.session.user = existingUser;
-            return res.redirect("/");
-        } else{
-            //create an account
-            const user = await User.create({
+        let user = await User.findOne({email: emailObj.email});
+        if(!user){
+            user = await User.create({
+                avatarUrl:userData.avatar_url,
                 name: userData.name ? userData.name : userData.login,
                 userName: userData.login,
                 email: emailObj.email,
@@ -107,16 +103,18 @@ export const finishGithubLogin = async (req,res) => {
                 socialOnly: true,
                 location: userData.location,
             });
-            req.session.loggedIn = true;
-            req.session.user = user;
-            return res.redirect("/");
         }
+        req.session.loggedIn = true;
+        req.session.user = user;
+        return res.redirect("/");
     } else {
         return res.redirect("/login");
     }
 }
 
+export const logout = (req, res) => {
+    req.session.destroy();
+    return res.redirect("/")
+};
 export const edit = (req, res) => res.send("User Edit!");
-export const remove = (req, res) => res.send("Remove User!");
-export const logout = (req, res) => res.send("logout!");
 export const see = (req,res) => res.send("see");
