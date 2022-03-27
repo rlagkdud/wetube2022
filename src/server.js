@@ -11,21 +11,24 @@ const app = express();
 const logger = morgan("dev");
 
 app.set("view engine", "pug");
-app.set("views",process.cwd() + "/src/views");
+app.set("views", process.cwd() + "/src/views");
 app.use(logger);
-app.use(express.urlencoded({ extended:true }));
+app.use(express.urlencoded({ extended: true }));
 
-app.use(session({
+app.use(
+  session({
     secret: process.env.COOKIE_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
-        maxAge: 300000,
+      maxAge: 300000,
     },
-    store: MongoStore.create({mongoUrl: process.env.DB_URL }),
-}));
+    store: MongoStore.create({ mongoUrl: process.env.DB_URL }),
+  })
+);
 
 app.use(localsMiddleware);
+app.use("/uploads", express.static("uploads"));
 app.use("/", rootRouter);
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);
