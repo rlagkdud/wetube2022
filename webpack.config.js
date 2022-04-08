@@ -8,7 +8,9 @@ module.exports = {
     }),
   ],
   mode: "development",
+  watch: true,
   output: {
+    clean: true,
     filename: "js/main.js",
     path: path.resolve(__dirname, "assets"),
   },
