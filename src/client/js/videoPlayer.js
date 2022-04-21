@@ -105,12 +105,7 @@ const handleMouseLeave = () => {
 
 const handleSpacebar = (event) => {
   if (event.code === "Space") {
-    if (video.paused) {
-      video.play();
-    } else {
-      video.pause();
-    }
-    playBtnIcon.classList = video.paused ? "fas fa-play" : "fas fa-pause";
+    handlePlayClick();
   }
 };
 
