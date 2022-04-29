@@ -21,9 +21,12 @@ module.exports = {
   module: {
     rules: [
       {
-        loader: "babel-loader",
-        options: {
-          presets: ["@babel/preset-env"],
+        test: /\.js$/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: [["@babel/preset-env", { targets: "defaults" }]],
+          },
         },
       },
       {
