@@ -7,6 +7,7 @@ const handleSubmit = (event) => {
   const text = textarea.value;
   const video = videoContainer.dataset.id;
 };
+
 if (form) {
   form.addEventListener("click", handleSubmit);
 }
