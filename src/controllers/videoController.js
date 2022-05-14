@@ -154,26 +154,19 @@ export const createComment = async (req, res) => {
 };
 
 export const deleteComment = async (req, res) => {
-  console.log("click");
   const {
     session: {
       user: { _id },
     },
     params: { id: commentId },
   } = req;
-  console.log(commentId);
   const comment = await Comment.findById(commentId);
   if (!comment) {
-    console.log("!comment");
     return res.status(404);
   }
   if (String(comment.owner._id) !== String(_id)) {
-    console.log("different user");
     return res.status(403);
   }
-  console.log("delete id start");
   await Comment.findByIdAndDelete(commentId);
-  console.log("delete id end");
-  //console.log("delete comment in db");
   return res.status(200);
 };
