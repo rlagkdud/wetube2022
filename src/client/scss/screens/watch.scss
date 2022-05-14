@@ -42,10 +42,14 @@
   margin: 0 auto;
   margin-top: 20px;
   .video__comment {
+    display: flex;
     padding: 10px;
     border-radius: 9999px;
     background-color: white;
     color: black;
     margin-bottom: 10px;
+    .delete__comment {
+      margin: 0 0 0 auto;
+    }
   }
 }
