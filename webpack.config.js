@@ -15,8 +15,6 @@ module.exports = {
       filename: "css/styles.css",
     }),
   ],
-  mode: "development",
-  watch: true,
   output: {
     clean: true,
     filename: "js/[name].js",
