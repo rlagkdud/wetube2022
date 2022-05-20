@@ -18,10 +18,12 @@ header
                         if loggedInUser.avatarUrl === NULL
                             span 😊
                         else 
-                            if loggedInUser.avatarUrl.includes("github")
+                            if loggedInUser.socialOnly
                                 img.header__avatar(src=loggedInUser.avatarUrl,crossorigin)
                             else 
-                                img.header__avatar(scr="/"+loggedInUser.avatarUrl,crossorigin)
+                                img.header__avatar(src= "/" + loggedInUser.avatarUrl, crossorigin)
+
+
             else
                 li
                     a(href="/login")  Login                        
