@@ -149,7 +149,6 @@ export const postEdit = async (req, res) => {
     body: { name, email, userName, location },
     file,
   } = req;
-  console.log(file);
   const findUserName = await User.findOne({ userName });
   const findEmail = await User.findOne({ email });
   if (
@@ -164,7 +163,7 @@ export const postEdit = async (req, res) => {
   const updatedUser = await User.findByIdAndUpdate(
     _id,
     {
-      avatarUrl: file ? file.path : avatarUrl,
+      avatarUrl: file ? file.location : avatarUrl,
       name,
       email,
       userName,
@@ -221,7 +220,6 @@ export const see = async (req, res) => {
       model: "User",
     },
   });
-  console.log(user);
   if (!user) {
     return res.status(404).render("404", { pageTitle: "User not found." });
   }
