@@ -160,10 +160,11 @@ export const postEdit = async (req, res) => {
       errorMessage: "User exists already",
     });
   }
+  const isheroku = process.env.NODE_ENV === "production";
   const updatedUser = await User.findByIdAndUpdate(
     _id,
     {
-      avatarUrl: file ? file.location : avatarUrl,
+      avatarUrl: file ? (isheroku ? file.location : file.path) : avatarUrl,
       name,
       email,
       userName,
